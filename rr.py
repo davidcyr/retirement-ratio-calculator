@@ -43,12 +43,14 @@ def pretty_string ( float_tuple ):
 
 def main( argv=None ):
 
+    #
+    # hold onto original arguments just in case I want to do some debugging
+    #
     if (argv==None):
         argv = sys.argv[:1]
 
-
     # 
-    # make adjustments to read/parse parameters for e.g. FINAL_INCOME
+    # handle command line arguments
     #
     parser = argparse.ArgumentParser()
     parser.add_argument ( "--final-income", type=float,
@@ -69,11 +71,15 @@ def main( argv=None ):
     else:
         mult = DEFAULT_RETIREMENT_SAVINGS_MULTIPLIER 
 
-    print ("Calculating based on income: {0} and multiplier: {1}".format(inc, mult))
+    #
+    # calculate and output results
+    #
+    print ()
+    print ("Calculating based on income: {:12,.2f} and multiplier: {:5.2f}".format(inc, mult))
 
     rr_range =  get_replacement_income_range( inc )
 
-    print ( type(rr_range) )
+    print ()
     print ( pretty_string(rr_range) )
 
     required_savings_range = get_required_savings_range ( rr_range, mult )
